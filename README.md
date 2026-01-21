@@ -1,98 +1,90 @@
+# FinanceZ 🧟💸
+
+[![NestJS](https://img.shields.io/badge/NestJS-%23E0234E.svg?style=flat&logo=nestjs&logoColor=white)](https://nestjs.com)
+[![Node.js](https://img.shields.io/badge/Node.js-43853D?style=flat&logo=node.js&logoColor=white)](https://nodejs.org)
+[![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=flat&logo=typescript&logoColor=white)](https://www.typescriptlang.org)
+[![Telegraf](https://img.shields.io/badge/Telegraf-26A5E4?style=flat&logo=telegram&logoColor=white)](https://telegraf.js.org/)
+[![Telegram](https://img.shields.io/badge/Telegram-Bot-26A5E4?style=flat&logo=telegram&logoColor=white)](https://core.telegram.org/bots)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+
+## 📖 About
+
+**FinanceZ** is a personal finance assistant bot for **Telegram**, built with [NestJS](https://nestjs.com) and **nestjs-telegraf (Telegraf)**.  
+It helps you **track expenses directly from chat** using simple commands like **add**, **delete**, **list**, and filters by **month/year** or **description**.
+
+---
+
+## Overview
+
 <p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
+  <img src="./docs/overview.png" alt="FinanceZ overview" width="1000" />
 </p>
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+---
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+## ✨ Tech stack
 
-## Description
+- **Framework:** NestJS
+- **Language:** TypeScript
+- **Bot framework:** Telegraf + nestjs-telegraf
+- **Commands / updates:** Decorators (`@Command`, `@Start`, `@Help`, `@Hears`, `@On`)
+- **Input parsing:** pt-BR number parsing (comma decimals) + arguments extraction
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+---
 
-## Project setup
+## 🚀 Key features
 
-```bash
-$ npm install
-```
+- **Onboarding & guidance**
+  - `/start` welcome message
+  - `/help` command list and usage instructions
+  - `/ping` quick bot check + personalized reply
 
-## Compile and run the project
+- **Expense management (chat-first)**
+  - `/add <value> <description>` add a new expense  
+    Example: `/add 150,20 Monthly subscription`
+  - `/del <id>` delete an expense by id  
+    Example: `/del 3`
+  - `/all` list all expenses for the current user
 
-```bash
-# development
-$ npm run start
+- **Smart filters**
+  - `/bym <month> <year>` list expenses by month/year  
+    Example: `/bym 5 2023`
+  - `/byd <description>` list expenses by description  
+    Example: `/byd Mensalidade`
 
-# watch mode
-$ npm run start:dev
+- **Friendly fallbacks**
+  - Unknown commands return a clear message and point to `/help`
+  - Non-command text messages receive a friendly “I didn’t understand” response
+  - Unsupported content types (stickers/photos/docs/audio/etc.) are rejected with a helpful hint
 
-# production mode
-$ npm run start:prod
-```
+---
 
-## Run tests
+## 🧾 Commands
 
-```bash
-# unit tests
-$ npm run test
+| Command | Description | Example |
+|--------|-------------|---------|
+| `/start` | Starts the bot and shows the welcome message | `/start` |
+| `/help` | Shows all available commands | `/help` |
+| `/ping` | Health-check / greeting | `/ping` |
+| `/add <value> <description>` | Adds a new expense | `/add 150,20 Mensalidade` |
+| `/del <id>` | Deletes an expense by id | `/del 3` |
+| `/all` | Lists all expenses | `/all` |
+| `/bym <month> <year>` | Lists expenses by month/year | `/bym 5 2023` |
+| `/byd <description>` | Lists expenses by description | `/byd Mensalidade` |
 
-# e2e tests
-$ npm run test:e2e
+> **Note:** Values accept **pt-BR format**, e.g. `150,20`.
 
-# test coverage
-$ npm run test:cov
-```
+---
 
-## Deployment
+## ✅ Input validation behavior
 
-When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
+- If `/add` is missing arguments, FinanceZ returns the correct usage format.
+- If the value cannot be parsed (or the description is empty), it returns an example.
+- For `/del`, if the id is invalid, it returns the proper usage.
+- Messages starting with `/` that don’t match known commands are treated as **unknown commands**.
+- Messages that do not start with `/` are treated as **unknown text**.
+- Stickers/photos/documents/audio/video/location/contacts are treated as **unsupported** inputs.
 
-If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
+---
 
-```bash
-$ npm install -g @nestjs/mau
-$ mau deploy
-```
-
-With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
-
-## Resources
-
-Check out a few resources that may come in handy when working with NestJS:
-
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Deploy your application to AWS with the help of [NestJS Mau](https://mau.nestjs.com) in just a few clicks.
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
-
-## Support
-
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
-
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
-
-## License
-
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+_Developed by Diego Chruscinski_
