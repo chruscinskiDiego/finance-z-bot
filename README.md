@@ -5,7 +5,6 @@
 [![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=flat&logo=typescript&logoColor=white)](https://www.typescriptlang.org)
 [![Telegraf](https://img.shields.io/badge/Telegraf-26A5E4?style=flat&logo=telegram&logoColor=white)](https://telegraf.js.org/)
 [![Telegram](https://img.shields.io/badge/Telegram-Bot-26A5E4?style=flat&logo=telegram&logoColor=white)](https://core.telegram.org/bots)
-[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 
 ## 📖 About
 
@@ -88,3 +87,36 @@ It helps you **track expenses directly from chat** using simple commands like **
 ---
 
 _Developed by Diego Chruscinski_
+
+---
+
+## Local setup
+
+Requirements: Node.js, npm, Docker Compose and a Telegram bot token obtained from BotFather.
+
+```bash
+npm ci
+cp .env.example .env
+# Fill BOT_TOKEN and set your local database credentials in .env.
+docker compose up -d
+npm run start:dev
+```
+
+The DB_* connection settings must match the DB_COMPOSE_* settings used by PostgreSQL. Use a dedicated development bot; do not run multiple polling instances for the same token.
+
+## Persistence and project structure
+
+- `src/bot/`: Telegram updates, command handling and formatting.
+- `src/expense/`: expense entity and persistence operations.
+- `src/app.module.ts`: PostgreSQL/TypeORM and bot initialization.
+
+The current configuration enables TypeORM synchronize and query logging for development. Review these settings before deployment. The project includes default NestJS test files, not comprehensive coverage of the bot's commands.
+
+## Available checks
+
+```bash
+npm run build
+npm test
+```
+
+Use a test database and bot token when running checks that initialize AppModule. There is no LICENSE file in this repository; no MIT license is asserted by this README.
